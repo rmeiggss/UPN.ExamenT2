@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPN.ExamenT2.Enunciado1", "UPN.ExamenT2.Enunciado1\UPN.ExamenT2.Enunciado1.csproj", "{6D76AD78-D3DD-4323-8942-092D8ADC7D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPN.ExamenT2.Enunciado1", "UPN.ExamenT2.Enunciado1\UPN.ExamenT2.Enunciado1.csproj", "{6D76AD78-D3DD-4323-8942-092D8ADC7D7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPN.ExamenT2.CrossCutting", "UPN.ExamenT2.CrossCutting\UPN.ExamenT2.CrossCutting.csproj", "{4C617CAE-8BF8-4AE0-99B0-5A753A05592F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPN.ExamenT2.Repository", "UPN.ExamenT2.DataAccess\UPN.ExamenT2.Repository.csproj", "{B2DC3AC0-7BD7-4E13-A773-70369E4D524C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6D76AD78-D3DD-4323-8942-092D8ADC7D7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D76AD78-D3DD-4323-8942-092D8ADC7D7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D76AD78-D3DD-4323-8942-092D8ADC7D7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C617CAE-8BF8-4AE0-99B0-5A753A05592F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C617CAE-8BF8-4AE0-99B0-5A753A05592F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C617CAE-8BF8-4AE0-99B0-5A753A05592F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C617CAE-8BF8-4AE0-99B0-5A753A05592F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2DC3AC0-7BD7-4E13-A773-70369E4D524C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DC3AC0-7BD7-4E13-A773-70369E4D524C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DC3AC0-7BD7-4E13-A773-70369E4D524C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DC3AC0-7BD7-4E13-A773-70369E4D524C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
