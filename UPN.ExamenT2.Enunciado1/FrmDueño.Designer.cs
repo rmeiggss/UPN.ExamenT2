@@ -28,18 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             btnBuscar = new Button();
             btnCerrar = new Button();
             btnGuardar = new Button();
-            txtRaza = new TextBox();
-            txtBuscar = new TextBox();
+            txtDireccion = new TextBox();
             txtNombre = new TextBox();
             dgLista = new DataGridView();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             mkdTelefono = new MaskedTextBox();
+            btnEliminar = new Button();
+            errorProvider1 = new ErrorProvider(components);
+            errorProvider2 = new ErrorProvider(components);
+            errorProvider3 = new ErrorProvider(components);
+            btnNuevo = new Button();
+            txtBuscar = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgLista).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider3).BeginInit();
             SuspendLayout();
             // 
             // btnBuscar
@@ -47,59 +56,59 @@
             btnBuscar.Location = new Point(213, 108);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(72, 25);
-            btnBuscar.TabIndex = 15;
+            btnBuscar.TabIndex = 6;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnCerrar
             // 
             btnCerrar.Location = new Point(609, 407);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(98, 45);
-            btnCerrar.TabIndex = 16;
+            btnCerrar.TabIndex = 7;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
             // 
             // btnGuardar
             // 
-            btnGuardar.Location = new Point(609, 88);
+            btnGuardar.Location = new Point(505, 96);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(98, 43);
-            btnGuardar.TabIndex = 17;
+            btnGuardar.Size = new Size(98, 35);
+            btnGuardar.TabIndex = 4;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
-            // txtRaza
+            // txtDireccion
             // 
-            txtRaza.AcceptsReturn = true;
-            txtRaza.Location = new Point(434, 10);
-            txtRaza.Multiline = true;
-            txtRaza.Name = "txtRaza";
-            txtRaza.ScrollBars = ScrollBars.Vertical;
-            txtRaza.Size = new Size(273, 57);
-            txtRaza.TabIndex = 10;
-            // 
-            // txtBuscar
-            // 
-            txtBuscar.Location = new Point(12, 108);
-            txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(195, 23);
-            txtBuscar.TabIndex = 11;
+            txtDireccion.AcceptsReturn = true;
+            txtDireccion.Location = new Point(434, 10);
+            txtDireccion.Multiline = true;
+            txtDireccion.Name = "txtDireccion";
+            txtDireccion.ScrollBars = ScrollBars.Vertical;
+            txtDireccion.Size = new Size(248, 57);
+            txtDireccion.TabIndex = 2;
             // 
             // txtNombre
             // 
             txtNombre.Location = new Point(80, 10);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(273, 23);
-            txtNombre.TabIndex = 13;
+            txtNombre.Size = new Size(243, 23);
+            txtNombre.TabIndex = 1;
             // 
             // dgLista
             // 
+            dgLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgLista.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgLista.Location = new Point(12, 137);
+            dgLista.MultiSelect = false;
             dgLista.Name = "dgLista";
             dgLista.Size = new Size(695, 264);
-            dgLista.TabIndex = 9;
+            dgLista.TabIndex = 8;
+            dgLista.CellClick += dgLista_CellContentClick;
+            dgLista.DataBindingComplete += dgLista_DataBindingComplete;
             // 
             // label3
             // 
@@ -134,7 +143,47 @@
             mkdTelefono.Mask = "000000000";
             mkdTelefono.Name = "mkdTelefono";
             mkdTelefono.Size = new Size(100, 23);
-            mkdTelefono.TabIndex = 18;
+            mkdTelefono.TabIndex = 3;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Location = new Point(609, 96);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(98, 35);
+            btnEliminar.TabIndex = 4;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
+            // errorProvider2
+            // 
+            errorProvider2.ContainerControl = this;
+            // 
+            // errorProvider3
+            // 
+            errorProvider3.ContainerControl = this;
+            // 
+            // btnNuevo
+            // 
+            btnNuevo.Location = new Point(401, 96);
+            btnNuevo.Name = "btnNuevo";
+            btnNuevo.Size = new Size(98, 35);
+            btnNuevo.TabIndex = 4;
+            btnNuevo.Text = "Nuevo";
+            btnNuevo.UseVisualStyleBackColor = true;
+            btnNuevo.Click += btnNuevo_Click;
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Location = new Point(12, 108);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(195, 23);
+            txtBuscar.TabIndex = 5;
+            txtBuscar.KeyPress += txtBuscar_KeyPress;
             // 
             // FrmDueño
             // 
@@ -144,8 +193,10 @@
             Controls.Add(mkdTelefono);
             Controls.Add(btnBuscar);
             Controls.Add(btnCerrar);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnNuevo);
             Controls.Add(btnGuardar);
-            Controls.Add(txtRaza);
+            Controls.Add(txtDireccion);
             Controls.Add(txtBuscar);
             Controls.Add(txtNombre);
             Controls.Add(dgLista);
@@ -154,7 +205,11 @@
             Controls.Add(label1);
             Name = "FrmDueño";
             Text = "Registro de dueño";
+            Load += FrmDueño_Load;
             ((System.ComponentModel.ISupportInitialize)dgLista).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider3).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -164,13 +219,18 @@
         private Button btnBuscar;
         private Button btnCerrar;
         private Button btnGuardar;
-        private TextBox txtRaza;
-        private TextBox txtBuscar;
+        private TextBox txtDireccion;
         private TextBox txtNombre;
         private DataGridView dgLista;
         private Label label3;
         private Label label2;
         private Label label1;
         private MaskedTextBox mkdTelefono;
+        private Button btnEliminar;
+        private ErrorProvider errorProvider1;
+        private ErrorProvider errorProvider2;
+        private ErrorProvider errorProvider3;
+        private Button btnNuevo;
+        private TextBox txtBuscar;
     }
 }

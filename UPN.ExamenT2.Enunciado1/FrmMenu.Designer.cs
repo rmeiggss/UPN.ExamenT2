@@ -74,7 +74,9 @@
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Name = "FrmMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

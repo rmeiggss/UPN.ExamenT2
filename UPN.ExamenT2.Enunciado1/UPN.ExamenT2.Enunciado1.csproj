@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UPN.ExamenT2.DataAccess\UPN.ExamenT2.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

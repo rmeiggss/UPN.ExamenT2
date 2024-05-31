@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
+    <ProjectReference Include="..\UPN.ExamenT2.CrossCutting\UPN.ExamenT2.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>
