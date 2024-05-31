@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UPN.ExamenT2.CrossCutting.Utiles;
+﻿using UPN.ExamenT2.CrossCutting.Utiles;
 using UPN.ExamenT2.Repository.Context;
 using UPN.ExamenT2.Repository.Models;
 

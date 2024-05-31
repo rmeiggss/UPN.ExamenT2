@@ -1,5 +1,4 @@
-﻿using System.Data;
-using UPN.ExamenT2.Enunciado1.Utiles;
+﻿using UPN.ExamenT2.Enunciado1.Utiles;
 using UPN.ExamenT2.Repository.Models;
 using UPN.ExamenT2.Repository.Repository;
 

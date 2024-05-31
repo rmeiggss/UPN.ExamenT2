@@ -18,5 +18,15 @@ namespace UPN.ExamenT2.Enunciado1
         {
             Utilitario.CreateMdiChildOrActivate<FrmMascota>(this);
         }
+
+        private void FrmMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }
