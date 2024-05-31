@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using UPN.ExamenT2.CrossCutting.Utiles;
+﻿using System.Data;
 using UPN.ExamenT2.Enunciado1.Utiles;
 using UPN.ExamenT2.Repository.Models;
 using UPN.ExamenT2.Repository.Repository;
@@ -16,12 +7,14 @@ namespace UPN.ExamenT2.Enunciado1
 {
     public partial class FrmMascota : Form, IDisposable
     {
-        private readonly DuenhoRepository des_duenhoRepository;
-        private readonly MascotaRepository des_mascotaRepository;
+        private readonly DuenhoRepository pd_duenhoRepository;
+        private readonly MascotaRepository pd_mascotaRepository;
+        private readonly RazaRepository pd_razaRepository;
         public FrmMascota()
         {
-            des_duenhoRepository = new DuenhoRepository();
-            des_mascotaRepository = new MascotaRepository();
+            pd_duenhoRepository = new DuenhoRepository();
+            pd_mascotaRepository = new MascotaRepository();
+            pd_razaRepository = new RazaRepository();
 
             InitializeComponent();
         }
@@ -29,17 +22,39 @@ namespace UPN.ExamenT2.Enunciado1
         private void FrmMascota_Load(object sender, EventArgs e)
         {
             IniciarGrilla();
-            LlenarCombo();
+            LlenarComboDuenho();
+            LlenarComboRaza();
+
             Listar();
         }
 
-        private void LlenarCombo()
+        private void LlenarComboRaza()
+        {
+            cmbRaza.DisplayMember = "Nombre";
+            cmbRaza.ValueMember = "Id";
+
+            var pd_lista = Utilitario.EnumerableADataTable(pd_razaRepository.Listar()).DefaultView;
+            var pd_defaultRow = pd_lista.Table!.NewRow();
+            pd_defaultRow["Id"] = 0;
+            pd_defaultRow["Nombre"] = "-Seleccione-";
+            pd_lista.Table.Rows.InsertAt(pd_defaultRow, 0);
+
+            cmbRaza.DataSource = pd_lista;
+            cmbRaza.BindingContext = BindingContext;
+        }
+
+        private void LlenarComboDuenho()
         {
             cmbDueño.DisplayMember = "Nombre";
             cmbDueño.ValueMember = "Id";
 
-            var lista = Utilitario.EnumerableADataTable(des_duenhoRepository.Listar()).DefaultView;
-            cmbDueño.DataSource = lista;
+            var des_lista = Utilitario.EnumerableADataTable(pd_duenhoRepository.Listar()).DefaultView;
+            var defaultRow = des_lista.Table!.NewRow();
+            defaultRow["Id"] = 0;
+            defaultRow["Nombre"] = "-Seleccione-";
+            des_lista.Table.Rows.InsertAt(defaultRow, 0);
+            
+            cmbDueño.DataSource = des_lista;
             cmbDueño.BindingContext = BindingContext;
         }
 
@@ -68,10 +83,10 @@ namespace UPN.ExamenT2.Enunciado1
         {
             try
             {
-                var pdes_mascota = des_mascotaRepository.Listar();
-                if (pdes_mascota.Count > 0)
+                var pd_mascota = pd_mascotaRepository.Listar();
+                if (pd_mascota.Count > 0)
                 {
-                    RefreshData(pdes_mascota);
+                    RefreshData(pd_mascota);
                 }
             }
             catch (Exception ex)
@@ -105,27 +120,33 @@ namespace UPN.ExamenT2.Enunciado1
                 {
                     return;
                 }
-                var pdes_selectedRows = dgLista.SelectedRows;
-                if (pdes_selectedRows.Count > 0)
+                var pd_selectedRows = dgLista.SelectedRows;
+                if (pd_selectedRows.Count > 0)
                 {
-                    var id = Convert.ToInt32(pdes_selectedRows[0].Cells["txtId"].Value);
-                    var pdes_duenho = des_mascotaRepository.BuscarPorId(id);
-                    if (pdes_duenho == null)
+                    var id = Convert.ToInt32(pd_selectedRows[0].Cells["txtId"].Value);
+                    var pd_duenho = pd_mascotaRepository.BuscarPorId(id);
+                    if (pd_duenho == null)
                     {
                         throw new Exception("No se encontro el registro, por favor limpie el formulario.");
                     }
 
-                    pdes_duenho.Nombre = txtNombre.Text;
-                    pdes_duenho.Edad = Convert.ToInt32(txtEdad.Text);
-                    pdes_duenho.Raza = txtRaza.Text;
-                    pdes_duenho.DuenhoId = Convert.ToInt32(cmbDueño.SelectedValue);
+                    pd_duenho.Nombre = txtNombre.Text;
+                    pd_duenho.Edad = Convert.ToInt32(txtEdad.Text);
+                    pd_duenho.Raza = cmbRaza.Text;
+                    pd_duenho.DuenhoId = Convert.ToInt32(cmbDueño.SelectedValue);
 
-                    des_mascotaRepository.Actualizar(pdes_duenho);
+                    pd_mascotaRepository.Actualizar(pd_duenho);
                 }
                 else
                 {
-                    var pdes_duenho = new Mascota(txtNombre.Text, txtRaza.Text, Convert.ToInt32(txtEdad.Text), Convert.ToInt32(cmbDueño.SelectedValue));
-                    des_mascotaRepository.Guardar(pdes_duenho);
+                    var pd_existeMascota = pd_mascotaRepository.BuscarPorNombre(txtNombre.Text);
+                    if(pd_existeMascota is not null && pd_existeMascota.Count > 0)
+                    {
+                        throw new Exception("Ya existe una mascota con ese nombre");
+                    }
+
+                    var pd_duenho = new Mascota(txtNombre.Text, cmbRaza.Text, Convert.ToInt32(txtEdad.Text), Convert.ToInt32(cmbDueño.SelectedValue));
+                    pd_mascotaRepository.Guardar(pd_duenho);
                 }
                 MessageBox.Show("Se guardo correctamente", "¡MENSAJE!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Limpiar();
@@ -151,7 +172,7 @@ namespace UPN.ExamenT2.Enunciado1
         {
             try
             {
-                var pdes_mascota = des_mascotaRepository.BuscarPorNombre(txtBuscar.Text);
+                var pdes_mascota = pd_mascotaRepository.BuscarPorNombre(txtBuscar.Text);
                 RefreshData(pdes_mascota);
             }
             catch (Exception ex)
@@ -163,9 +184,9 @@ namespace UPN.ExamenT2.Enunciado1
         private void Limpiar()
         {
             txtNombre.Clear();
-            txtRaza.Clear();
+            cmbRaza.SelectedIndex = 0;
             txtEdad.ResetText();
-            cmbDueño.SelectedIndex = -1;
+            cmbDueño.SelectedIndex = 0;
 
             dgLista.ClearSelection();
 
@@ -187,18 +208,10 @@ namespace UPN.ExamenT2.Enunciado1
                 return false;
             }
 
-            if (string.IsNullOrEmpty(txtRaza.Text))
-            {
-                errorProvider1.SetError(txtRaza, "Ingrese una raza");
-                txtRaza.Focus();
-                return false;
-            }
-
-
             if (string.IsNullOrEmpty(txtEdad.Text))
             {
-                errorProvider1.SetError(txtRaza, "Ingrese la edad");
-                txtRaza.Focus();
+                errorProvider1.SetError(txtEdad, "Ingrese la edad");
+                txtEdad.Focus();
                 return false;
             }
             if (txtEdad.Value == 0)
@@ -207,9 +220,15 @@ namespace UPN.ExamenT2.Enunciado1
                 txtEdad.Focus();
                 return false;
             }
-            
 
-            if (cmbDueño.SelectedIndex == -1)
+            if (cmbRaza.SelectedIndex <= 0)
+            {
+                errorProvider1.SetError(cmbRaza, "Seleccione una raza");
+                cmbRaza.Focus();
+                return false;
+            }
+
+            if (cmbDueño.SelectedIndex <= 0)
             {
                 errorProvider1.SetError(cmbDueño, "Seleccione un dueño");
                 cmbDueño.Focus();
@@ -235,11 +254,11 @@ namespace UPN.ExamenT2.Enunciado1
             {
                 try
                 {
-                    var confirm = MessageBox.Show("¿Está seguro de eliminar?", "¡ALERTA!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (confirm == DialogResult.Yes)
+                    var pd_confirm = MessageBox.Show("¿Está seguro de eliminar?", "¡ALERTA!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (pd_confirm == DialogResult.Yes)
                     {
                         var id = Convert.ToInt32(dgLista.SelectedRows[0].Cells["txtId"].Value);
-                        des_mascotaRepository.Eliminar(id);
+                        pd_mascotaRepository.Eliminar(id);
                         MessageBox.Show("Se eliminó correctamente", "¡MENSAJE!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Limpiar();
                         Listar();
@@ -258,13 +277,13 @@ namespace UPN.ExamenT2.Enunciado1
             if (e.RowIndex >= 0)
             {
                 var id = Convert.ToInt32(dgLista.Rows[e.RowIndex].Cells["txtId"].Value);
-                var pdes_duenho = des_mascotaRepository.BuscarPorId(id);
-                if(pdes_duenho != null)
+                var pd_duenho = pd_mascotaRepository.BuscarPorId(id);
+                if(pd_duenho != null)
                 {
-                    txtNombre.Text = pdes_duenho.Nombre;
-                    txtRaza.Text = pdes_duenho.Raza;
-                    txtEdad.Text = pdes_duenho.Edad.ToString();
-                    cmbDueño.SelectedValue = pdes_duenho.DuenhoId;
+                    txtNombre.Text = pd_duenho.Nombre;
+                    cmbRaza.Text = pd_duenho.Raza;
+                    txtEdad.Text = pd_duenho.Edad.ToString();
+                    cmbDueño.SelectedValue = pd_duenho.DuenhoId;
                 }
             }
         }

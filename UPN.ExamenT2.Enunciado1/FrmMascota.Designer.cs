@@ -35,7 +35,6 @@
             label4 = new Label();
             txtNombre = new TextBox();
             cmbDueño = new ComboBox();
-            txtRaza = new TextBox();
             btnCerrar = new Button();
             txtBuscar = new TextBox();
             btnBuscar = new Button();
@@ -45,6 +44,7 @@
             btnNuevo = new Button();
             button1 = new Button();
             txtEdad = new NumericUpDown();
+            cmbRaza = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgLista).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtEdad).BeginInit();
@@ -91,29 +91,23 @@
             txtNombre.Location = new Point(80, 15);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(273, 23);
-            txtNombre.TabIndex = 2;
+            txtNombre.TabIndex = 1;
             // 
             // cmbDueño
             // 
+            cmbDueño.AutoCompleteMode = AutoCompleteMode.Suggest;
             cmbDueño.FormattingEnabled = true;
             cmbDueño.Location = new Point(434, 50);
             cmbDueño.Name = "cmbDueño";
             cmbDueño.Size = new Size(273, 23);
-            cmbDueño.TabIndex = 3;
-            // 
-            // txtRaza
-            // 
-            txtRaza.Location = new Point(434, 12);
-            txtRaza.Name = "txtRaza";
-            txtRaza.Size = new Size(273, 23);
-            txtRaza.TabIndex = 2;
+            cmbDueño.TabIndex = 4;
             // 
             // btnCerrar
             // 
             btnCerrar.Location = new Point(609, 412);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(98, 45);
-            btnCerrar.TabIndex = 4;
+            btnCerrar.TabIndex = 10;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
             // 
@@ -122,7 +116,7 @@
             txtBuscar.Location = new Point(12, 113);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(195, 23);
-            txtBuscar.TabIndex = 2;
+            txtBuscar.TabIndex = 8;
             txtBuscar.KeyPress += txtBuscar_KeyPress;
             // 
             // btnBuscar
@@ -130,7 +124,7 @@
             btnBuscar.Location = new Point(213, 113);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(72, 25);
-            btnBuscar.TabIndex = 4;
+            btnBuscar.TabIndex = 9;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
             btnBuscar.Click += btnBuscar_Click;
@@ -149,13 +143,14 @@
             dgLista.Size = new Size(695, 264);
             dgLista.TabIndex = 9;
             dgLista.CellClick += dgLista_CellContentClick;
+            dgLista.DataBindingComplete += dgLista_DataBindingComplete;
             // 
             // btnEliminar
             // 
             btnEliminar.Location = new Point(606, 101);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(98, 35);
-            btnEliminar.TabIndex = 10;
+            btnEliminar.TabIndex = 6;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
@@ -165,7 +160,7 @@
             btnNuevo.Location = new Point(398, 101);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(98, 35);
-            btnNuevo.TabIndex = 11;
+            btnNuevo.TabIndex = 7;
             btnNuevo.Text = "Nuevo";
             btnNuevo.UseVisualStyleBackColor = true;
             btnNuevo.Click += btnNuevo_Click_1;
@@ -175,7 +170,7 @@
             button1.Location = new Point(502, 101);
             button1.Name = "button1";
             button1.Size = new Size(98, 35);
-            button1.TabIndex = 12;
+            button1.TabIndex = 5;
             button1.Text = "Guardar";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
@@ -185,13 +180,23 @@
             txtEdad.Location = new Point(80, 51);
             txtEdad.Name = "txtEdad";
             txtEdad.Size = new Size(120, 23);
-            txtEdad.TabIndex = 14;
+            txtEdad.TabIndex = 3;
+            // 
+            // cmbRaza
+            // 
+            cmbRaza.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRaza.FormattingEnabled = true;
+            cmbRaza.Location = new Point(434, 15);
+            cmbRaza.Name = "cmbRaza";
+            cmbRaza.Size = new Size(270, 23);
+            cmbRaza.TabIndex = 11;
             // 
             // FrmMascota
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(720, 469);
+            Controls.Add(cmbRaza);
             Controls.Add(txtEdad);
             Controls.Add(btnEliminar);
             Controls.Add(btnNuevo);
@@ -200,7 +205,6 @@
             Controls.Add(btnBuscar);
             Controls.Add(btnCerrar);
             Controls.Add(cmbDueño);
-            Controls.Add(txtRaza);
             Controls.Add(txtBuscar);
             Controls.Add(txtNombre);
             Controls.Add(label4);
@@ -225,7 +229,6 @@
         private Label label4;
         private TextBox txtNombre;
         private ComboBox cmbDueño;
-        private TextBox txtRaza;
         private Button btnCerrar;
         private TextBox txtBuscar;
         private Button btnBuscar;
@@ -235,5 +238,6 @@
         private Button btnNuevo;
         private Button button1;
         private NumericUpDown txtEdad;
+        private ComboBox cmbRaza;
     }
 }

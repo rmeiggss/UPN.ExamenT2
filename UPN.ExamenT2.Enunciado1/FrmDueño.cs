@@ -7,10 +7,10 @@ namespace UPN.ExamenT2.Enunciado1
 {
     public partial class FrmDueño : Form
     {
-        private readonly DuenhoRepository pdes_duenhoRepository;
+        private readonly DuenhoRepository pd_duenhoRepository;
         public FrmDueño()
         {
-            pdes_duenhoRepository = new DuenhoRepository();
+            pd_duenhoRepository = new DuenhoRepository();
             InitializeComponent();
         }
         private bool Validaciones()
@@ -63,7 +63,7 @@ namespace UPN.ExamenT2.Enunciado1
         {
             try
             {
-                var pdes_duenho = pdes_duenhoRepository.BuscarPorNombre(txtBuscar.Text);
+                var pdes_duenho = pd_duenhoRepository.BuscarPorNombre(txtBuscar.Text);
                 RefreshData(pdes_duenho);
             }
             catch (Exception ex)
@@ -98,7 +98,7 @@ namespace UPN.ExamenT2.Enunciado1
         {
             try
             {
-                var pdes_duenho = pdes_duenhoRepository.Listar();
+                var pdes_duenho = pd_duenhoRepository.Listar();
                 RefreshData(pdes_duenho);
             }
             catch (Exception ex)
@@ -121,11 +121,11 @@ namespace UPN.ExamenT2.Enunciado1
             {
                 try
                 {
-                    var confirm = MessageBox.Show("¿Está seguro de eliminar?", "¡ALERTA!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (confirm == DialogResult.Yes)
+                    var pd_confirm = MessageBox.Show("¿Está seguro de eliminar?", "¡ALERTA!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (pd_confirm == DialogResult.Yes)
                     {
                         var id = Convert.ToInt32(dgLista.SelectedRows[0].Cells["txtId"].Value);
-                        pdes_duenhoRepository.Eliminar(id);
+                        pd_duenhoRepository.Eliminar(id);
                         MessageBox.Show("Se eliminó correctamente", "¡MENSAJE!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Limpiar();
                         Listar();
@@ -144,11 +144,11 @@ namespace UPN.ExamenT2.Enunciado1
             if (e.RowIndex >= 0)
             {
                 var id = Convert.ToInt32(dgLista.Rows[e.RowIndex].Cells["txtId"].Value);
-                var pdes_duenho = pdes_duenhoRepository.BuscarPorId(id);
+                var pd_duenho = pd_duenhoRepository.BuscarPorId(id);
 
-                txtNombre.Text = pdes_duenho.Nombre;
-                txtDireccion.Text = pdes_duenho.Direccion;
-                mkdTelefono.Text = pdes_duenho.Telefono;
+                txtNombre.Text = pd_duenho.Nombre;
+                txtDireccion.Text = pd_duenho.Direccion;
+                mkdTelefono.Text = pd_duenho.Telefono;
             }
         }
 
@@ -186,11 +186,11 @@ namespace UPN.ExamenT2.Enunciado1
                 {
                     return;
                 }
-                var pdes_selectedRows = dgLista.SelectedRows;
-                if (pdes_selectedRows.Count > 0)
+                var pd_selectedRows = dgLista.SelectedRows;
+                if (pd_selectedRows.Count > 0)
                 {
-                    var id = Convert.ToInt32(pdes_selectedRows[0].Cells["txtId"].Value);
-                    var pdes_duenho = pdes_duenhoRepository.BuscarPorId(id);
+                    var id = Convert.ToInt32(pd_selectedRows[0].Cells["txtId"].Value);
+                    var pdes_duenho = pd_duenhoRepository.BuscarPorId(id);
                     if (pdes_duenho == null)
                     {
                         throw new Exception("No se encontro el registro, por favor limpie el formulario.");
@@ -200,12 +200,12 @@ namespace UPN.ExamenT2.Enunciado1
                     pdes_duenho.Direccion = txtDireccion.Text;
                     pdes_duenho.Telefono = mkdTelefono.Text;
 
-                    pdes_duenhoRepository.Actualizar(pdes_duenho);
+                    pd_duenhoRepository.Actualizar(pdes_duenho);
                 }
                 else
                 {
-                    var pdes_duenho = new Duenho(txtNombre.Text, txtDireccion.Text, mkdTelefono.Text);
-                    pdes_duenhoRepository.Guardar(pdes_duenho);
+                    var pd_duenho = new Duenho(txtNombre.Text, txtDireccion.Text, mkdTelefono.Text);
+                    pd_duenhoRepository.Guardar(pd_duenho);
                 }
                 MessageBox.Show("Se guardo correctamente", "¡MENSAJE!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Limpiar();

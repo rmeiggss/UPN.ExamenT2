@@ -1,18 +1,20 @@
-﻿namespace UPN.ExamenT2.Repository.Models
+﻿using System.Globalization;
+
+namespace UPN.ExamenT2.Repository.Models
 {
     public class Mascota
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Raza { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string Raza { get; set; } = string.Empty;
         public int Edad { get; set; }
         public int DuenhoId { get; set; }
-        public Duenho Duenho { get; set; }
+        public Duenho Duenho { get; set; } = new Duenho();
         public string NombreDuenho
         {
             get
             {
-                return Duenho?.Nombre;
+                return Duenho?.Nombre ?? string.Empty;
             }
         }
 

@@ -56,7 +56,7 @@
             btnBuscar.Location = new Point(213, 108);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(72, 25);
-            btnBuscar.TabIndex = 6;
+            btnBuscar.TabIndex = 8;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
             btnBuscar.Click += btnBuscar_Click;
@@ -66,7 +66,7 @@
             btnCerrar.Location = new Point(609, 407);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.Size = new Size(98, 45);
-            btnCerrar.TabIndex = 7;
+            btnCerrar.TabIndex = 8;
             btnCerrar.Text = "Cerrar";
             btnCerrar.UseVisualStyleBackColor = true;
             btnCerrar.Click += btnCerrar_Click;
@@ -150,7 +150,7 @@
             btnEliminar.Location = new Point(609, 96);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(98, 35);
-            btnEliminar.TabIndex = 4;
+            btnEliminar.TabIndex = 5;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = true;
             btnEliminar.Click += btnEliminar_Click;
@@ -172,7 +172,7 @@
             btnNuevo.Location = new Point(401, 96);
             btnNuevo.Name = "btnNuevo";
             btnNuevo.Size = new Size(98, 35);
-            btnNuevo.TabIndex = 4;
+            btnNuevo.TabIndex = 6;
             btnNuevo.Text = "Nuevo";
             btnNuevo.UseVisualStyleBackColor = true;
             btnNuevo.Click += btnNuevo_Click;
@@ -182,7 +182,7 @@
             txtBuscar.Location = new Point(12, 108);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(195, 23);
-            txtBuscar.TabIndex = 5;
+            txtBuscar.TabIndex = 7;
             txtBuscar.KeyPress += txtBuscar_KeyPress;
             // 
             // FrmDueño

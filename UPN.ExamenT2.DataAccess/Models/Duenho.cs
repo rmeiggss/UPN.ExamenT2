@@ -3,9 +3,12 @@
     public class Duenho
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Direccion { get; set; }
-        public string Telefono { get; set; }
+        public string Nombre { get; set; } = string.Empty;
+        public string Direccion { get; set; } = string.Empty;
+        public string Telefono { get; set; } = string.Empty;
+        public Duenho()
+        {
+        }
 
         public Duenho(string nombre, string direccion, string telefono)
         {

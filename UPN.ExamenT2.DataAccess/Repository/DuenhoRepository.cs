@@ -8,50 +8,50 @@ namespace UPN.ExamenT2.Repository.Repository
     {
         public void Guardar(Duenho duenho)
         {
-            var lastId = StaticContext.des_DuenhoData.Count > 0 ? StaticContext.des_DuenhoData.Last().Id : 0;
-            lastId++;
+            var pd_lastId = StaticContext.pd_DuenhoData.Count > 0 ? StaticContext.pd_DuenhoData.Last().Id : 0;
+            pd_lastId++;
 
-            duenho.Id = lastId;
+            duenho.Id = pd_lastId;
             
-            StaticContext.des_DuenhoData.Add(duenho);
+            StaticContext.pd_DuenhoData.Add(duenho);
         }
 
         public List<Duenho> Listar()
         {
-            return StaticContext.des_DuenhoData;
+            return StaticContext.pd_DuenhoData;
         }
 
         public Duenho BuscarPorId(int id)
         {
-            var des_DuenhoArrayData = StaticContext.des_DuenhoData.Select(s => s.Id).ToArray();
+            var pd_DuenhoArrayData = StaticContext.pd_DuenhoData.Select(s => s.Id).ToArray();
 
-            var index = AlgoritmosBusqueda.BusquedaSecuencial(des_DuenhoArrayData, id);
+            var pd_index = AlgoritmosBusqueda.BusquedaSecuencial(pd_DuenhoArrayData, id);
 
-            if (index == -1)
+            if (pd_index == -1)
             {
                 return null!;
             }
 
-            return StaticContext.des_DuenhoData[index];
+            return StaticContext.pd_DuenhoData[pd_index];
         }
 
         public List<Duenho> BuscarPorNombre(string nombre)
         {
-            var result = StaticContext.des_DuenhoData.Where(x => x.Nombre.ToLower().Contains(nombre.ToLower())).ToList();
-            return result;
+            var pd_result = StaticContext.pd_DuenhoData.Where(x => x.Nombre.ToLower().Contains(nombre.ToLower())).ToList();
+            return pd_result;
         }
 
         public void Eliminar(int id)
         {
-            StaticContext.des_DuenhoData.Remove(BuscarPorId(id));
+            StaticContext.pd_DuenhoData.Remove(BuscarPorId(id));
         }
 
         public void Actualizar(Duenho duenho)
         {
-            var duenhoActual = BuscarPorId(duenho.Id);
-            duenhoActual.Nombre = duenho.Nombre;
-            duenhoActual.Direccion = duenho.Direccion;
-            duenhoActual.Telefono = duenho.Telefono;
+            var pd_duenhoActual = BuscarPorId(duenho.Id);
+            pd_duenhoActual.Nombre = duenho.Nombre;
+            pd_duenhoActual.Direccion = duenho.Direccion;
+            pd_duenhoActual.Telefono = duenho.Telefono;
         }
     }
 }

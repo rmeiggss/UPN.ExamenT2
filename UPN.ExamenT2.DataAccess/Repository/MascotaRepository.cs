@@ -8,18 +8,18 @@ namespace UPN.ExamenT2.Repository.Repository
     {
         public void Guardar(Mascota duenho)
         {
-            var lastId = StaticContext.des_MascotaData.Count > 0 ? StaticContext.des_MascotaData.Last().Id : 0;
-            lastId++;
+            var pd_lastId = StaticContext.pd_MascotaData.Count > 0 ? StaticContext.pd_MascotaData.Last().Id : 0;
+            pd_lastId++;
 
-            duenho.Id = lastId;
+            duenho.Id = pd_lastId;
 
-            StaticContext.des_MascotaData.Add(duenho);
+            StaticContext.pd_MascotaData.Add(duenho);
         }
 
         public List<Mascota> Listar()
         {
-            var result = (from ma in StaticContext.des_MascotaData
-                          join du in StaticContext.des_DuenhoData on ma.DuenhoId equals du.Id
+            var result = (from ma in StaticContext.pd_MascotaData
+                          join du in StaticContext.pd_DuenhoData on ma.DuenhoId equals du.Id
                           select new Mascota()
                           {
                               Id = ma.Id,
@@ -35,36 +35,32 @@ namespace UPN.ExamenT2.Repository.Repository
 
         public Mascota BuscarPorId(int id)
         {
-            var des_MascotaArrayData = StaticContext.des_DuenhoData.Select(s => s.Id).ToArray();
+            var pd_MascotaArrayData = StaticContext.pd_DuenhoData.Select(s => s.Id).ToArray();
 
-            var index = AlgoritmosBusqueda.BusquedaSecuencial(des_MascotaArrayData, id);
+            var index = AlgoritmosBusqueda.BusquedaSecuencial(pd_MascotaArrayData, id);
 
             if (index == -1)
             {
                 return null!;
             }
 
-            return StaticContext.des_MascotaData[index];
+            return StaticContext.pd_MascotaData[index];
         }
 
-        public List<Mascota> BuscarPorNombre(string nombre)
-        {
-            var result = StaticContext.des_MascotaData.Where(x => x.Nombre.ToLower().Contains(nombre.ToLower())).ToList();
-            return result;
-        }
+        public List<Mascota> BuscarPorNombre(string nombre) => StaticContext.pd_MascotaData.Where(x => x.Nombre.ToLower().Contains(nombre.ToLower())).ToList();
 
         public void Eliminar(int id)
         {
-            StaticContext.des_MascotaData.Remove(BuscarPorId(id));
+            StaticContext.pd_MascotaData.Remove(BuscarPorId(id));
         }
 
         public void Actualizar(Mascota mascota)
         {
-            var des_mascotaActual = BuscarPorId(mascota.Id);
-            des_mascotaActual.Nombre = mascota.Nombre;
-            des_mascotaActual.Edad = mascota.Edad;
-            des_mascotaActual.Raza = mascota.Raza;
-            des_mascotaActual.DuenhoId = mascota.DuenhoId;
+            var pd_mascotaActual = BuscarPorId(mascota.Id);
+            pd_mascotaActual.Nombre = mascota.Nombre;
+            pd_mascotaActual.Edad = mascota.Edad;
+            pd_mascotaActual.Raza = mascota.Raza;
+            pd_mascotaActual.DuenhoId = mascota.DuenhoId;
         }
 
         
